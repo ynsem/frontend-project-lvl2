@@ -1,5 +1,5 @@
 import { test, expect } from '@jest/globals';
-import diffsearch from '../dist/diffsearch.js';
+import diffsearch from '../src/diffsearch.js';
 
 test('gendiff', () => {
   expect(diffsearch('before.json', 'after.json')).toEqual(
