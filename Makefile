@@ -14,4 +14,5 @@ lint:
 	npx eslint .
 
 test:
+	make build
 	npm test

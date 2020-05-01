@@ -4,7 +4,7 @@
   "description": "Compares two configuration files and shows a difference",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npx jest",
     "build": "NODE_ENV=production babel src --out-dir dist",
     "prepublishOnly": "npm run build"
   },
@@ -22,22 +22,25 @@
   },
   "homepage": "https://github.com/ynsem/frontend-project-lvl2#readme",
   "bin": {
-    "gendiff": "src/bin/gendiff.js"
+    "gendiff": "dist/bin/gendiff.js"
   },
   "files": [
     "dist"
   ],
   "devDependencies": {
     "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.9.0",
+    "@babel/core": "^7.9.6",
     "@babel/node": "^7.8.7",
-    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-env": "^7.9.6",
+    "babel-jest": "^25.5.1",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
+    "jest": "^25.5.3",
     "prettier": "^2.0.4"
   },
   "dependencies": {
+    "@jest/globals": "^25.5.2",
     "commander": "^5.0.0",
     "lodash": "^4.17.15"
   }
