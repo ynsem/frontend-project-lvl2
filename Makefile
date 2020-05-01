@@ -16,6 +16,3 @@ lint:
 test:
 	make build
 	npm test
-
-test-coverage:
-	npm test -- --coverage
