@@ -15,3 +15,7 @@
 ## Пример работы программы с файлами YAML
 
 [![asciicast](https://asciinema.org/a/ReZw8dX6eprTp2sOvhGDdF106.svg)](https://asciinema.org/a/ReZw8dX6eprTp2sOvhGDdF106)
+
+## Пример работы программы с файлами INI
+
+[![asciicast](https://asciinema.org/a/pN2MuPLXj193JJSq0r0vF5HvB.svg)](https://asciinema.org/a/pN2MuPLXj193JJSq0r0vF5HvB)

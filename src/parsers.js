@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
+import ini from 'ini';
 
 // Выбирается функция-парсер в зависимости от расширения файла
 const parse = (configPath) => {
@@ -15,10 +16,9 @@ const parse = (configPath) => {
     parser = JSON.parse;
   } else if (format === '.yml') {
     parser = yaml.safeLoad;
+  } else if (format === '.ini') {
+    parser = ini.parse;
   }
-  // } else if (format === '.ini') {
-  //   parse = ini.parse;
-  // }
 
   return parser(data);
 };
