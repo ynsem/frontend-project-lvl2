@@ -1,46 +1,84 @@
 import _ from 'lodash';
 import parse from './parsers.js';
 
-const diffSearch = (firstConfig, secondConfig) => {
-  // объект полученный преобразованием первого файла
-  const firstFile = parse(firstConfig);
-  // объект полученный преобразованием второго файла
-  const secondFile = parse(secondConfig);
-
-  // массивы ключей объектов
-  const keysFirst = Object.keys(firstFile);
-  const keysSecond = Object.keys(secondFile);
+const diff = (objBefore, objAfter) => {
+  // массивы ключей, отдельные и общий без дублей
+  const keysBefore = Object.keys(objBefore);
+  const keysAfter = Object.keys(objAfter);
+  const keys = _.uniq(keysBefore.concat(keysAfter));
 
   const resultArray = [];
 
-  // проходим по всем ключам первого объекта
-  for (let i = 0; i < keysFirst.length; i += 1) {
-    // проходим по всем ключамвторого объекта
-    for (let j = 0; j < keysSecond.length; j += 1) {
-      // если ключи совпадают
-      if (keysFirst[i] === keysSecond[j]) {
-        // если значения равны, записываем пару без изменений в resultArray
-        if (firstFile[keysFirst[i]] === secondFile[keysSecond[j]]) {
-          resultArray.push(`    ${keysFirst[i]}: ${firstFile[keysFirst[i]]}`);
+  keys.forEach((item) => {
+    // если ключ есть и там и там
+    if (_.has(objAfter, item) && _.has(objBefore, item)) {
+      // если оба ключа объекты
+      if (_.isObject(objBefore[item]) && _.isObject(objAfter[item])) {
+        // resultArray.push(`    ${item}: ${objBefore[item]}`);
+        resultArray.push({
+          type: ' ',
+          key: item,
+          value: objBefore[item],
+        });
+      } else if (objBefore[item] === objAfter[item]) {
+        // и его значение не менялось
+        // resultArray.push(`    ${item}: ${objBefore[item]}`);
+        resultArray.push({
+          type: ' ',
+          key: item,
+          value: objBefore[item],
+        });
         // иначе, вносим с + и -
-        } else {
-          resultArray.push(`  + ${keysSecond[j]}: ${secondFile[keysSecond[j]]}`);
-          resultArray.push(`  - ${keysFirst[i]}: ${firstFile[keysFirst[i]]}`);
-        }
-      }
-      // если в первом объекте нет ключа из второго, вносим в resultArray
-      if (!_.has(firstFile, keysSecond[j])) {
-        resultArray.push(`  + ${keysSecond[j]}: ${secondFile[keysSecond[j]]}`);
+      } else {
+        // resultArray.push(`  + ${item}: ${objAfter[item]}`);
+        // resultArray.push(`  - ${item}: ${objBefore[item]}`);
+        resultArray.push({
+          type: '+',
+          key: item,
+          value: objAfter[item],
+        });
+        resultArray.push({
+          type: '-',
+          key: item,
+          value: objBefore[item],
+        });
       }
     }
-    // если во втором объекте нет ключа из первого, вносим в resultArray
-    if (!_.has(secondFile, keysFirst[i])) {
-      resultArray.push(`  - ${keysFirst[i]}: ${firstFile[keysFirst[i]]}`);
-    }
-  }
 
-  // переписать!
-  return `{\n${_.uniq(resultArray).join('\n')}\n}`;
+    // если в after нет ключа из before, то вносим в resultArray с минусом
+    if (!_.has(objAfter, item)) {
+      // resultArray.push(`  - ${item}: ${objBefore[item]}`);
+      resultArray.push({
+        type: '-',
+        key: item,
+        value: objBefore[item],
+      });
+    }
+
+    // если в before нет ключа из after, то вносим в resultArray с плюсом
+    if (!_.has(objBefore, item)) {
+      // resultArray.push(`  + ${item}: ${objAfter[item]}`);
+      resultArray.push({
+        type: '+',
+        key: item,
+        value: objAfter[item],
+      });
+    }
+  });
+
+  return resultArray;
+};
+
+const diffSearch = (firstConfig, secondConfig) => {
+  // объект полученный преобразованием первого файла
+  const objFirst = parse(firstConfig);
+  // объект полученный преобразованием второго файла
+  const objSecond = parse(secondConfig);
+
+  // const result = diff(objFirst, objSecond);
+  // return `{\n${result.join('\n')}\n}`;
+
+  return diff(objFirst, objSecond);
 };
 
 export default diffSearch;
