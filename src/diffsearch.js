@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import parse from './parsers.js';
+import formater from './stylish';
 
+// обрабатывает два объекта, возвращая массив с различиями
 const diff = (objBefore, objAfter) => {
   // массивы ключей, отдельные и общий без дублей
   const keysBefore = Object.keys(objBefore);
@@ -51,9 +53,14 @@ const diffSearch = (firstConfig, secondConfig) => {
 
   const result = diff(objFirst, objSecond);
 
-  console.log(result[1].value);
-  console.log('---------------------');
-  return result;
+  let resultStr = '{\n';
+  resultStr += formater(result, 1);
+  resultStr += '}';
+
+  return resultStr;
+
+  // const result = diff(objFirst, objSecond);
+  // return result
 };
 
 export default diffSearch;

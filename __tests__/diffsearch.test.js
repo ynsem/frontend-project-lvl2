@@ -8,6 +8,11 @@ const data = fs.readFileSync(
   'utf8',
 );
 
+const data1 = fs.readFileSync(
+  path.resolve(process.cwd(), '__tests__/fixtures/result1'),
+  'utf8',
+);
+
 test('json', () => {
   expect(diffsearch('before.json', 'after.json')).toEqual(data);
 });
@@ -18,4 +23,8 @@ test('yaml', () => {
 
 test('ini', () => {
   expect(diffsearch('before.ini', 'after.ini')).toEqual(data);
+});
+
+test('jsonDeep', () => {
+  expect(diffsearch('before1.json', 'after1.json')).toEqual(data1);
 });
