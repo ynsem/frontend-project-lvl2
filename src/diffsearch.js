@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import parse from './parsers.js';
-import formater from './stylish';
+import formater from './formatters/toJson';
 
 // обрабатывает два объекта, возвращая массив с различиями
 const diff = (objBefore, objAfter) => {
@@ -51,16 +51,16 @@ const diffSearch = (firstConfig, secondConfig) => {
   // объект полученный преобразованием второго файла
   const objSecond = parse(secondConfig);
 
-  const result = diff(objFirst, objSecond);
+  // return formater(result);
 
+  const result = diff(objFirst, objSecond);
   let resultStr = '{\n';
   resultStr += formater(result, 1);
   resultStr += '}';
-
   return resultStr;
 
   // const result = diff(objFirst, objSecond);
-  // return result
+  // return result;
 };
 
 export default diffSearch;

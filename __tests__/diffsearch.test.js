@@ -13,6 +13,11 @@ const data1 = fs.readFileSync(
   'utf8',
 );
 
+const data2 = fs.readFileSync(
+  path.resolve(process.cwd(), '__tests__/fixtures/resultPlain'),
+  'utf8',
+);
+
 test('json', () => {
   expect(diffsearch('before.json', 'after.json')).toEqual(data);
 });
@@ -27,4 +32,8 @@ test('ini', () => {
 
 test('jsonDeep', () => {
   expect(diffsearch('before1.json', 'after1.json')).toEqual(data1);
+});
+
+test('formatPlain', () => {
+  expect(diffsearch('before1.json', 'after1.json')).toEqual(data2);
 });

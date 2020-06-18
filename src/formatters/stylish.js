@@ -25,7 +25,7 @@ const formater = (arr, space) => {
       if (!Object.prototype.hasOwnProperty.call(obj, 'type')) {
         const keys = Object.keys(item.value);
         keys.forEach((key) => {
-          resultStr += `  ${key}: ${item.value[key]}\n    }\n`;
+          resultStr += `       ${key}: ${item.value[key]}\n    }\n`;
         });
       }
     }
