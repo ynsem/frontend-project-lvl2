@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import parse from './parsers.js';
-import formater from './formatters/toJson';
+import formater from './formatters/stylish';
 
 // обрабатывает два объекта, возвращая массив с различиями
 const diff = (objBefore, objAfter) => {

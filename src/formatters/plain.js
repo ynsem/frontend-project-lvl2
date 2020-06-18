@@ -14,7 +14,6 @@ const formater = (arr) => {
         resultStr += `Property '${item.key}' was added with value: ${item.value}\n`;
       }
     }
-
   });
 
   return resultStr;
